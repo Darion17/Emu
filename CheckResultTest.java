@@ -52,3 +52,20 @@ public class CheckResultTest {
         assertEquals("first", cr.getMessages().get(0));
         assertEquals("second", cr.getMessages().get(1));
     }
+    // 7. isPassed stays false after multiple messages
+    @Test
+    public void multipleMessages_staysFailed() {
+        CheckResult cr = new CheckResult();
+        cr.addMessage("one");
+        cr.addMessage("two");
+        assertFalse(cr.isPassed());
+    }
+
+    // 8. getMessages returns same list that grows
+    @Test
+    public void getMessages_reflectsNewMessages() {
+        CheckResult cr = new CheckResult();
+        List<String> msgs = cr.getMessages();
+        cr.addMessage("added later");
+        assertEquals(1, msgs.size());
+    }
